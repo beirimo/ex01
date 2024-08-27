@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ReplyMapper">
+	<insert id="Rinsert">
+    insert into reply(bid, writer, contents)
+    values (#{bid}, #{writer}, #{contents})
+</insert>
+
+ 	<select id="now" resultType="string">
+ 		select now();
+ 	</select>
+ 	<select id="Rread" resultType="com.example.domain.ReplyVO">
+ 		select * from reply
+ 		wehere rid=#{rid}
+ 	</select>
+ 	<update id="Rupdate">
+ 		update reply
+ 		set contents=#{contents}, updateDate=now()
+ 	</update>
+ 	<delete id="Rdelete">
+ 		delete from reply
+ 		where rid=#{rid}
+ 	</delete>
+ 	<select id="Rlist" resultType="com.example.domain.ReplyVO">
+		select * from Reply
+	
+		<where>
+		 	
+			<if test="key=='rid'">
+		 		title like #{word}
+			</if>
+			<if test="key=='contents'">
+		 		contents like #{word}
+			</if>
+	</where>
+		order by rid desc
+		limit #{start},#{size};
+		</select>
+</mapper>

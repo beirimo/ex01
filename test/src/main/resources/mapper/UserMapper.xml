@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+	<select id="login" resultType="com.example.domain.UserVO">
+		select * from users
+		where uid=#{uid}
+	</select>
+	<select id="check" resultType="int">
+	select count(1) as uid 
+	from users
+	where uid=#{uid}
+	</select>
+	<insert id="save" parameterType="com.example.domain.UserVO">
+    INSERT INTO users (uid, upass, uname, state, email, birthdate, gender, nationality, phone_number)
+    VALUES (#{uid}, #{upass}, #{uname}, #{state}, #{email}, #{birthdate}, #{gender}, #{nationality}, #{phone_number})
+    ON DUPLICATE KEY UPDATE
+    upass = VALUES(upass),
+    uname = VALUES(uname),
+    state = VALUES(state),
+    email = VALUES(email),
+    birthdate = VALUES(birthdate),
+    gender = VALUES(gender),
+    nationality = VALUES(nationality),
+    phone_number = VALUES(phone_number)
+		</insert>
+		<select id="mypage" resultType="com.example.domain.UserVO">
+		select * from users
+		where uid=#{uid}
+	</select>
+		<update id="myupdate">
+			update users
+			set upass = #{upass},
+        	uname = #{uname},
+        	state = #{state},
+       		email = #{email},
+        	birthdate = #{birthdate},
+        	gender = #{gender},
+        	nationality = #{nationality},
+        	phone_number = #{phone_number}
+			where uid=#{uid}
+		</update>
+	
+	
+	
+</mapper>
